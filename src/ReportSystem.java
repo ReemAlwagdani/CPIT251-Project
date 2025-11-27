@@ -55,4 +55,33 @@ public class ReportSystem {
             System.out.println(r.toString());
         }
     }
+     public void viewReportStatusById(Scanner in) {
+        System.out.print("Enter report ID: ");
+        int id = in.nextInt();
+        in.nextLine(); 
+
+        Report found = findReportById(id);
+
+        if (found == null) {
+            System.out.println("Report not found.");
+        } else {
+            System.out.println("\nReport ID: " + found.getId());
+            System.out.println("Issue: " + found.getIssue());
+            System.out.println("Location: " + found.getLocation());
+            System.out.println("Submitted by: " + found.getSubmittedBy());
+            System.out.println("Current status: " + found.getStatus());
+        }
+    }
+
+    
+    public Report findReportById(int id) {
+        for (Report r : reports) {
+            if (r.getId() == id) {
+                return r;
+            }
+        }
+        return null;
+    }
+
+
 }
