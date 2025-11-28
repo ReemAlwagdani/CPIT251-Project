@@ -3,10 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-/**
- *
- * @author jansb
- */
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -82,6 +79,62 @@ public class ReportSystem {
         }
         return null;
     }
+public void updateReportStatus(Scanner in) {
+        System.out.print("Enter report ID to update: ");
+        int id = in.nextInt();
+        in.nextLine();
 
+        Report found = findReportById(id);
+
+        if (found == null) {
+            System.out.println("Report not found.");
+            return;
+        }
+
+        System.out.println("Current status: " + found.getStatus());
+        System.out.println("Choose new status:");
+        System.out.println("1. NEW");
+        System.out.println("2. IN_PROGRESS");
+        System.out.println("3. RESOLVED");
+        System.out.print("Enter choice: ");
+        int s = in.nextInt();
+        in.nextLine();
+
+        if (s == 1) {
+            found.setStatus("NEW");
+        } else if (s == 2) {
+            found.setStatus("IN_PROGRESS");
+        } else if (s == 3) {
+            found.setStatus("RESOLVED");
+        } else {
+            System.out.println("Invalid status choice.");
+            return;
+        }
+
+        System.out.println("Status updated successfully.");
+    }
+
+   public void showStats() {
+        int total = reports.size();
+        int open = 0;
+
+        for (Report r : reports) {
+            String st = r.getStatus();
+            if (st.equals("NEW") || st.equals("IN_PROGRESS")) {
+                open++;
+            }
+        }
+
+        int resolved = total - open;
+
+        System.out.println("\n--- Statistics ---");
+        System.out.println("Total reports: " + total);
+        System.out.println("Open reports: " + open);
+        System.out.println("Resolved reports: " + resolved);
+    }
+
+    public ArrayList<Report> getReports() {
+    return reports;
+}
 
 }
