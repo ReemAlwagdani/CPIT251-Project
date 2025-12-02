@@ -9,11 +9,13 @@ public class MalfunctionApp {
     public static void main(String[] args) {
           System.out.println("\t\tWelcome to Malfunction Report System!\n"
                 + "\t_______________________________________________\n");
+
         Scanner input = new Scanner(System.in);
         ReportSystem system = new ReportSystem();
 
         int role = 0;
 
+        //role menu 
         while (true) {
 
             System.out.println("\nSelect your role:");
@@ -22,15 +24,18 @@ public class MalfunctionApp {
             System.out.println("3. Exit");
             System.out.print("Enter your choice: ");
             role = input.nextInt();
-            input.nextLine();
+            input.nextLine(); 
 
             if (role == 1) {
+                // Run menu for Reporter
                 runUserMenu(input, system);
 
             } else if (role == 2) {
+                // Run menu for IT staff
                 runITMenu(input, system);
 
             } else if (role == 3) {
+                // Exit the whole system
                 break;
 
             } else {
@@ -42,7 +47,12 @@ public class MalfunctionApp {
         input.close();
     }
 
-
+    /**
+     * Menu for Reporter
+     * Users can:
+     * 1) Add a new report
+     * 2) View the status of a specific report
+     */
     private static void runUserMenu(Scanner input, ReportSystem system) {
         int choice = 0;
         String anotherService = "";
@@ -51,7 +61,7 @@ public class MalfunctionApp {
 
             printUserMenu();
             choice = input.nextInt();
-            input.nextLine();
+            input.nextLine(); 
 
             if (choice == 1) {
                 system.addNewReport(input);          // Add a new report
@@ -63,7 +73,7 @@ public class MalfunctionApp {
                 System.out.println("Please enter a correct number.");
             }
 
-            if (choice != 3) {
+            if (choice != 3) { 
                 System.out.println("_______________________________________________"
                         + "\n\nWould you like to use another user service? (yes/no)");
                 anotherService = input.next();
@@ -78,7 +88,13 @@ public class MalfunctionApp {
                 + "\t_______________________________________________\n");
     }
 
-
+    /**
+     * Menu for IT staff.
+     * IT staff can:
+     * 1) View all reports
+     * 2) Update report status
+     * 3) Show statistics
+     */
     private static void runITMenu(Scanner input, ReportSystem system) {
         int choice = 0;
         String anotherService = "";
@@ -87,21 +103,21 @@ public class MalfunctionApp {
 
             printITMenu();
             choice = input.nextInt();
-            input.nextLine();
+            input.nextLine(); 
 
             if (choice == 1) {
-                system.viewAllReports();
+                system.viewAllReports();          // View all reports
             } else if (choice == 2) {
-                system.updateReportStatus(input);
+                system.updateReportStatus(input); // Update report status
             } else if (choice == 3) {
-                system.showStats();
+                system.showStats();               // Show statistics
             } else if (choice == 4) {
                 break;
             } else {
                 System.out.println("Please enter a correct number.");
             }
 
-            if (choice != 4) {
+            if (choice != 4) { 
                 System.out.println("_______________________________________________"
                         + "\n\nWould you like to do another IT action? (yes/no)");
                 anotherService = input.next();
@@ -116,6 +132,7 @@ public class MalfunctionApp {
                 + "\t_______________________________________________\n");
     }
 
+    // Print Reporter menu options
     private static void printUserMenu() {
         System.out.print("\n=== User Menu ===\n"
                 + "press 1: to add a new malfunction report\n"
@@ -125,6 +142,7 @@ public class MalfunctionApp {
                 + "your choice is: ");
     }
 
+    // Print IT staff menu options
     private static void printITMenu() {
         System.out.print("\n=== IT Staff Menu ===\n"
                 + "press 1: to view all reports\n"
