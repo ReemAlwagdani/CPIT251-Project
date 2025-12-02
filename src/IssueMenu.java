@@ -7,7 +7,11 @@
 
 import java.util.Scanner;
 public class IssueMenu {
-
+ 
+    /**
+     * Show a predefined list of issues and return the selected issue text.
+     * Returns null if the user enters an invalid number.
+     */
     public static String chooseIssue(Scanner in) {
         System.out.println("\nSelect the issue:");
         System.out.println("1. Projector - No signal");
@@ -18,7 +22,7 @@ public class IssueMenu {
         System.out.print("Enter issue number: ");
 
         int issueChoice = in.nextInt();
-        in.nextLine();
+        in.nextLine(); 
 
         switch (issueChoice) {
             case 1:
@@ -35,7 +39,7 @@ public class IssueMenu {
                 return null;
         }
     }
-
+    
 }
 
 

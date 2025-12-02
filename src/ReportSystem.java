@@ -9,12 +9,17 @@ import java.util.Scanner;
 
 public class ReportSystem {
 
-    
-    private ArrayList<Report> reports = new ArrayList<>();
+   // List of all reports in the system
+    private ArrayList<Report> reports = new ArrayList<Report>();
 
+    // Counter to generate the next report ID
     private int nextId = 1;
 
-   
+    
+    /**
+     * Create a new malfunction report
+     * Reads input from the user, creates a Report object, and adds it to the list.
+     */
     public void addNewReport(Scanner in) {
 
         String issue = IssueMenu.chooseIssue(in);
@@ -40,7 +45,10 @@ public class ReportSystem {
         System.out.println("Report added successfully with ID: " + r.getId());
     }
 
-   
+    /**
+     * View all reports
+     * Prints all reports stored in the system.
+     */
     public void viewAllReports() {
         if (reports.isEmpty()) {
             System.out.println("No reports yet.");
@@ -52,7 +60,51 @@ public class ReportSystem {
             System.out.println(r.toString());
         }
     }
-     public void viewReportStatusById(Scanner in) {
+
+    /**
+     * Update report status
+     * This method is intended for IT staff / technicians.
+     */
+    public void updateReportStatus(Scanner in) {
+        System.out.print("Enter report ID to update: ");
+        int id = in.nextInt();
+        in.nextLine(); 
+
+        Report found = findReportById(id);
+
+        if (found == null) {
+            System.out.println("Report not found.");
+            return;
+        }
+
+        System.out.println("Current status: " + found.getStatus());
+        System.out.println("Choose new status:");
+        System.out.println("1. NEW");
+        System.out.println("2. IN_PROGRESS");
+        System.out.println("3. RESOLVED");
+        System.out.print("Enter choice: ");
+        int s = in.nextInt();
+        in.nextLine(); 
+
+        if (s == 1) {
+            found.setStatus("NEW");
+        } else if (s == 2) {
+            found.setStatus("IN_PROGRESS");
+        } else if (s == 3) {
+            found.setStatus("RESOLVED");
+        } else {
+            System.out.println("Invalid status choice.");
+            return;
+        }
+
+        System.out.println("Status updated successfully.");
+    }
+
+    /**
+     * Allow user to check the status of a specific report by ID.
+     * This is mainly used by Reporters to track their reports.
+     */
+    public void viewReportStatusById(Scanner in) {
         System.out.print("Enter report ID: ");
         int id = in.nextInt();
         in.nextLine(); 
@@ -79,42 +131,12 @@ public class ReportSystem {
         }
         return null;
     }
-public void updateReportStatus(Scanner in) {
-        System.out.print("Enter report ID to update: ");
-        int id = in.nextInt();
-        in.nextLine();
 
-        Report found = findReportById(id);
-
-        if (found == null) {
-            System.out.println("Report not found.");
-            return;
-        }
-
-        System.out.println("Current status: " + found.getStatus());
-        System.out.println("Choose new status:");
-        System.out.println("1. NEW");
-        System.out.println("2. IN_PROGRESS");
-        System.out.println("3. RESOLVED");
-        System.out.print("Enter choice: ");
-        int s = in.nextInt();
-        in.nextLine();
-
-        if (s == 1) {
-            found.setStatus("NEW");
-        } else if (s == 2) {
-            found.setStatus("IN_PROGRESS");
-        } else if (s == 3) {
-            found.setStatus("RESOLVED");
-        } else {
-            System.out.println("Invalid status choice.");
-            return;
-        }
-
-        System.out.println("Status updated successfully.");
-    }
-
-   public void showStats() {
+    /**
+     * Show basic statistics.
+     * Shows total, open, and resolved reports.
+     */
+    public void showStats() {
         int total = reports.size();
         int open = 0;
 
@@ -132,7 +154,6 @@ public void updateReportStatus(Scanner in) {
         System.out.println("Open reports: " + open);
         System.out.println("Resolved reports: " + resolved);
     }
-
     public ArrayList<Report> getReports() {
     return reports;
 }

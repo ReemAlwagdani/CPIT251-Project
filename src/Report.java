@@ -1,12 +1,16 @@
 
 public class Report {
-     private int id;
+    // Unique ID for the report
+    private int id;
 
+    // Device information
     private String issue;
     private String location;
 
+    // Status: NEW, IN_PROGRESS, RESOLVED
     private String status;
 
+    // Name of the person who submitted the report
     private String submittedBy;
 
     public Report(int id, String issue,
@@ -50,5 +54,4 @@ public class Report {
                " | Status: " + status +
                " | By: " + submittedBy;
     }
-    
 }
